@@ -3,9 +3,9 @@ const { data } = Astro.props;
 console.log(data);
 ---
 
-<a href={`comments/${data.id}`}>
-  <article>
+<article class="mt-8">
+  <a href={`comments/${data.id}`}>
     <h2>{data.title}</h2>
     <p>{data.sdscr}</p>
-  </article>
-</a>
+  </a>
+</article>
