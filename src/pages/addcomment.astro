@@ -1,0 +1,107 @@
+---
+import MainLayout from "../layouts/mainLayout.astro";
+---
+
+<MainLayout>
+  <h1>Tilføj sko</h1>
+  <form class="w-full max-w-lg">
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="title"
+        >
+          Title:
+        </label>
+        <input
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="title"
+          name="title-input"
+          type="text"
+          required
+        />
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="short"
+        >
+          Short Description:
+        </label>
+        <textarea
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="short"
+          name="short-description-input"
+          rows="2"
+          required></textarea>
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="long"
+        >
+          Long Description:
+        </label>
+        <textarea
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="long"
+          name="long"
+          rows="6"
+          required></textarea>
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-2">
+      <div class="w-full px-3">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</MainLayout>
+
+<script>
+  const url = "https://ciaqrilyjthqvwujzgne.supabase.co/rest/v1/test_items";
+  const headers = {
+    apikey:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXFyaWx5anRocXZ3dWp6Z25lIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk0MDU1OTcsImV4cCI6MTk5NDk4MTU5N30.HvOlbfgbMwKnd2Dh6FMgSwgo33XsZM1nwvQXD-QrgUM",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXFyaWx5anRocXZ3dWp6Z25lIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk0MDU1OTcsImV4cCI6MTk5NDk4MTU5N30.HvOlbfgbMwKnd2Dh6FMgSwgo33XsZM1nwvQXD-QrgUM",
+    "Content-Type": "application/json",
+    Prefer: "return=representation",
+  };
+
+  function addComment(newShow) {
+    const options = {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(newShow),
+    };
+
+    fetch(url, options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data:", data);
+        window.location.href = "addcommentfeedback";
+      });
+  }
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const obj = {
+      title: form.elements.title.value,
+      sdscr: form.elements.short.value,
+      ldscr: form.elements.long.value,
+    };
+    addComment(obj);
+  });
+</script>

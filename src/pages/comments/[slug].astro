@@ -1,0 +1,32 @@
+---
+export async function getStaticPaths() {
+  const data = await fetch(
+    "https://ciaqrilyjthqvwujzgne.supabase.co/rest/v1/test_items",
+    {
+      method: "GET",
+      headers: {
+        apikey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXFyaWx5anRocXZ3dWp6Z25lIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk0MDU1OTcsImV4cCI6MTk5NDk4MTU5N30.HvOlbfgbMwKnd2Dh6FMgSwgo33XsZM1nwvQXD-QrgUM",
+      },
+    }
+  ).then((response) => response.json());
+
+  return data.map((post) => {
+    return {
+      params: { slug: post.id },
+      props: { post },
+    };
+  });
+}
+
+const { post } = Astro.props;
+
+import MainLayout from "../../layouts/mainLayout.astro";
+---
+
+<MainLayout title={post.title}>
+  <h2>{post.title}</h2>
+
+  <p>kort: {post.sdscr}</p>
+  <p>Lang: {post.ldscr}</p>
+</MainLayout>

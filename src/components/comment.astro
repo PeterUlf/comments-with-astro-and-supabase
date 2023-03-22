@@ -1,0 +1,11 @@
+---
+const { data } = Astro.props;
+console.log(data);
+---
+
+<a href={`comments/${data.id}`}>
+  <article>
+    <h2>{data.title}</h2>
+    <p>{data.sdscr}</p>
+  </article>
+</a>
